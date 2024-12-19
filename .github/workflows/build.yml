@@ -18,15 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       
-    - name: Select Xcode 16.2
+    - name: Select Xcode Version
       run: sudo xcode-select -s /Applications/Xcode_16.2.app
       
-    - name: Debug Project File
-      run: |
-        echo "Project structure:"
-        ls -la OverStimulated.xcodeproj/
-        echo "\nProject file contents:"
-        cat OverStimulated.xcodeproj/project.pbxproj
+    - name: Install create-dmg
+      run: brew install create-dmg
       
     - name: Build
       run: |
@@ -36,17 +32,23 @@ jobs:
           -configuration Release \
           -derivedDataPath build \
           CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO
+          CODE_SIGNING_REQUIRED=NO \
+          OTHER_CODE_SIGN_FLAGS="--timestamp" \
+          ENABLE_HARDENED_RUNTIME=NO
           
     - name: Create DMG
       run: |
         cd build/Build/Products/Release
-        # Create a temporary directory for the DMG
-        mkdir dmg
-        # Copy the app bundle to the temporary directory
-        cp -r OverStimulated.app dmg/
-        # Create the DMG
-        hdiutil create -volname "OverStimulated" -srcfolder dmg -ov -format UDZO OverStimulated.dmg
+        create-dmg \
+          --volname "OverStimulated" \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "OverStimulated.app" 200 190 \
+          --hide-extension "OverStimulated.app" \
+          --app-drop-link 600 185 \
+          "OverStimulated.dmg" \
+          "OverStimulated.app"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
