@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		9FD30C8D2D13B549002E0962 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD30C732D13B546002E0962 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD30C7A2D13B546002E0962;
+			remoteInfo = OverStimulated;
+		};
+		9FD30C972D13B549002E0962 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD30C732D13B546002E0962 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD30C7A2D13B546002E0962;
+			remoteInfo = OverStimulated;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9FD30C7B2D13B546002E0962 /* OverStimulated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OverStimulated.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD30C8C2D13B549002E0962 /* OverStimulatedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverStimulatedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD30C962D13B549002E0962 /* OverStimulatedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverStimulatedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9FD30C7D2D13B546002E0962 /* OverStimulated */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OverStimulated;
+			sourceTree = "<group>";
+		};
+		9FD30C8F2D13B549002E0962 /* OverStimulatedTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OverStimulatedTests;
+			sourceTree = "<group>";
+		};
+		9FD30C992D13B549002E0962 /* OverStimulatedUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OverStimulatedUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9FD30C782D13B546002E0962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C892D13B549002E0962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C932D13B549002E0962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9FD30C722D13B546002E0962 = {
+			isa = PBXGroup;
+			children = (
+				9FD30C7D2D13B546002E0962 /* OverStimulated */,
+				9FD30C8F2D13B549002E0962 /* OverStimulatedTests */,
+				9FD30C992D13B549002E0962 /* OverStimulatedUITests */,
+				9FD30C7C2D13B546002E0962 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9FD30C7C2D13B546002E0962 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9FD30C7B2D13B546002E0962 /* OverStimulated.app */,
+				9FD30C8C2D13B549002E0962 /* OverStimulatedTests.xctest */,
+				9FD30C962D13B549002E0962 /* OverStimulatedUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FD30C7A2D13B546002E0962 /* OverStimulated */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD30CA02D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulated" */;
+			buildPhases = (
+				9FD30C772D13B546002E0962 /* Sources */,
+				9FD30C782D13B546002E0962 /* Frameworks */,
+				9FD30C792D13B546002E0962 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9FD30C7D2D13B546002E0962 /* OverStimulated */,
+			);
+			name = OverStimulated;
+			packageProductDependencies = (
+			);
+			productName = OverStimulated;
+			productReference = 9FD30C7B2D13B546002E0962 /* OverStimulated.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9FD30C8B2D13B549002E0962 /* OverStimulatedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD30CA32D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulatedTests" */;
+			buildPhases = (
+				9FD30C882D13B549002E0962 /* Sources */,
+				9FD30C892D13B549002E0962 /* Frameworks */,
+				9FD30C8A2D13B549002E0962 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9FD30C8E2D13B549002E0962 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9FD30C8F2D13B549002E0962 /* OverStimulatedTests */,
+			);
+			name = OverStimulatedTests;
+			packageProductDependencies = (
+			);
+			productName = OverStimulatedTests;
+			productReference = 9FD30C8C2D13B549002E0962 /* OverStimulatedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9FD30C952D13B549002E0962 /* OverStimulatedUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD30CA62D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulatedUITests" */;
+			buildPhases = (
+				9FD30C922D13B549002E0962 /* Sources */,
+				9FD30C932D13B549002E0962 /* Frameworks */,
+				9FD30C942D13B549002E0962 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9FD30C982D13B549002E0962 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9FD30C992D13B549002E0962 /* OverStimulatedUITests */,
+			);
+			name = OverStimulatedUITests;
+			packageProductDependencies = (
+			);
+			productName = OverStimulatedUITests;
+			productReference = 9FD30C962D13B549002E0962 /* OverStimulatedUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FD30C732D13B546002E0962 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					9FD30C7A2D13B546002E0962 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					9FD30C8B2D13B549002E0962 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 9FD30C7A2D13B546002E0962;
+					};
+					9FD30C952D13B549002E0962 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 9FD30C7A2D13B546002E0962;
+					};
+				};
+			};
+			buildConfigurationList = 9FD30C762D13B546002E0962 /* Build configuration list for PBXProject "OverStimulated" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9FD30C722D13B546002E0962;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9FD30C7C2D13B546002E0962 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FD30C7A2D13B546002E0962 /* OverStimulated */,
+				9FD30C8B2D13B549002E0962 /* OverStimulatedTests */,
+				9FD30C952D13B549002E0962 /* OverStimulatedUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9FD30C792D13B546002E0962 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C8A2D13B549002E0962 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C942D13B549002E0962 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9FD30C772D13B546002E0962 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C882D13B549002E0962 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD30C922D13B549002E0962 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9FD30C8E2D13B549002E0962 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD30C7A2D13B546002E0962 /* OverStimulated */;
+			targetProxy = 9FD30C8D2D13B549002E0962 /* PBXContainerItemProxy */;
+		};
+		9FD30C982D13B549002E0962 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD30C7A2D13B546002E0962 /* OverStimulated */;
+			targetProxy = 9FD30C972D13B549002E0962 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9FD30C9E2D13B549002E0962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9FD30C9F2D13B549002E0962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		9FD30CA12D13B549002E0962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OverStimulated/OverStimulated.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OverStimulated/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulated;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9FD30CA22D13B549002E0962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OverStimulated/OverStimulated.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OverStimulated/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulated;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9FD30CA42D13B549002E0962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulatedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverStimulated.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OverStimulated";
+			};
+			name = Debug;
+		};
+		9FD30CA52D13B549002E0962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulatedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OverStimulated.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OverStimulated";
+			};
+			name = Release;
+		};
+		9FD30CA72D13B549002E0962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulatedUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = OverStimulated;
+			};
+			name = Debug;
+		};
+		9FD30CA82D13B549002E0962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ted.OverStimulatedUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = OverStimulated;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9FD30C762D13B546002E0962 /* Build configuration list for PBXProject "OverStimulated" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD30C9E2D13B549002E0962 /* Debug */,
+				9FD30C9F2D13B549002E0962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FD30CA02D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulated" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD30CA12D13B549002E0962 /* Debug */,
+				9FD30CA22D13B549002E0962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FD30CA32D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulatedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD30CA42D13B549002E0962 /* Debug */,
+				9FD30CA52D13B549002E0962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FD30CA62D13B549002E0962 /* Build configuration list for PBXNativeTarget "OverStimulatedUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD30CA72D13B549002E0962 /* Debug */,
+				9FD30CA82D13B549002E0962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9FD30C732D13B546002E0962 /* Project object */;
+}

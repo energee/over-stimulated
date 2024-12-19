@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Other existing entries -->
+    <key>NSAccessibilityUsageDescription</key>
+    <string>This app needs accessibility permissions to control the cursor position.</string>
+</dict>
+</plist> 
