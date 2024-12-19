@@ -9,9 +9,33 @@ import SwiftUI
 
 @main
 struct OverStimulatedApp: App {
+    @StateObject private var controller = CursorController()
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra {
+            Button(action: {
+                controller.togglePause()
+            }) {
+                Text(controller.isPaused ? "Resume" : "Pause")
+            }
+            .keyboardShortcut("p", modifiers: [])
+            
+            Divider()
+            
+            Button(action: {
+                NSApplication.shared.terminate(nil)
+            }) {
+                Text("Quit")
+            }
+            .keyboardShortcut("q", modifiers: [])
+        } label: {
+            Group {
+                if controller.isPaused {
+                    Image(systemName: "pause")
+                } else {
+                    Image(systemName: "circle")
+                }
+            }
         }
     }
 }

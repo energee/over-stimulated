@@ -1,80 +1,44 @@
 import SwiftUI
 import AppKit
 
-struct CursorConfig {
-    static let baseSpeed: CGFloat = 150
-    static let maxEdgeMargin: CGFloat = 200
-    static let updateFrequency: TimeInterval = 1.0/60.0
-    
-    static let maxSpeedVariation: CGFloat = 500
-    static let directionChangeBaseChance: Double = 0.02
-    static let directionChangeTimeFactor: Double = 0.5
-    
-    static let smoothingFactor: CGFloat = 0.15
-    static let minSpeedMultiplier: CGFloat = 0.3
-    static let maxSpeedMultiplier: CGFloat = 2.5
-    static let speedChangeChance: Double = 0.03
-    
-    static let pauseChance: Double = 0.0009
-    static let minPauseDuration: TimeInterval = 5.1
-    static let maxPauseDuration: TimeInterval = 15.432
-    static let pauseSlowingDuration: TimeInterval = 2
-    
-    static let focusChangeChance: Double = 0.001
-    
-    static let noiseFrequencyX: Double = 0.02
-    static let noiseFrequencyY: Double = 0.02
-    static let noiseAmplitudeX: CGFloat = 40.0
-    static let noiseAmplitudeY: CGFloat = 40.0
-    
-    static let microJitterAmplitude: CGFloat = 1.5
-    static let microJitterFrequency: CGFloat = 1.1
-    
-    // Maximum movement per frame in each axis to avoid very large jumps
-    // Keep it higher than before to allow more fluid movement.
-    static let maxDeltaPerFrame: CGFloat = 8.0
-    
-    // How fast we can turn angle per update (in radians per update)
-    static let maxTurnRate: CGFloat = 0.05
-}
-
-enum PauseState {
-    case notPausing
-    case slowingDown(startTime: TimeInterval)
-    case paused(endTime: TimeInterval)
-}
-
-class CursorController: ObservableObject {
+/// Controls the automated cursor movement with human-like behavior
+final class CursorController: ObservableObject {
+    // MARK: - Published Properties
     @Published private(set) var position: CGPoint = .zero
+    @Published private(set) var isPaused: Bool = false
     
+    // MARK: - Movement Properties
     private var currentVelocity: CGPoint = .zero
     private var targetVelocity: CGPoint = .zero
-    
-    // Instead of a simple boolean, use a heading angle
-    // 0 radians = moving to the right, PI/2 = up, etc.
     private var headingAngle: CGFloat = 0.0
-    
-    private var movementTimer: Timer?
-    private var keyMonitor: Any?
-    
     private var currentSpeed: CGFloat = CursorConfig.baseSpeed
     private var speedMultiplier: CGFloat = 1.0
+    private var time: Double = 0
     
+    // MARK: - Screen Boundaries
     private var leftMargin: CGFloat = CursorConfig.maxEdgeMargin / 2
     private var rightMargin: CGFloat = CursorConfig.maxEdgeMargin / 2
     private var topMargin: CGFloat = CursorConfig.maxEdgeMargin / 2
     private var bottomMargin: CGFloat = CursorConfig.maxEdgeMargin / 2
     
+    // MARK: - State Tracking
     private var lastDirectionChangeTime: TimeInterval = 0
-    
-    private var pauseState: PauseState = .notPausing
+    private var pauseState: PauseState = .notPausing {
+        didSet {
+            isPaused = pauseState.isPaused
+        }
+    }
     private var desiredPauseEndTime: TimeInterval = 0
     
+    // MARK: - Focus Point
     private var focusPoint: CGPoint?
     private var lastFocusChangeTime: TimeInterval = 0
     
-    private var time: Double = 0
+    // MARK: - System Resources
+    private var movementTimer: Timer?
+    private var keyMonitor: Any?
     
+    // MARK: - Initialization
     init() {
         setupInitialPosition()
         setupKeyboardMonitoring()
@@ -85,14 +49,13 @@ class CursorController: ObservableObject {
         cleanup()
     }
     
+    // MARK: - Setup
     private func setupInitialPosition() {
         guard let screen = NSScreen.main else { return }
         position = CGPoint(x: screen.frame.width / 2, y: screen.frame.height / 2)
         CGWarpMouseCursorPosition(position)
         randomizeMargins()
         lastDirectionChangeTime = Date().timeIntervalSinceReferenceDate
-        
-        // Initial heading angle random
         headingAngle = CGFloat.random(in: 0...(2*CGFloat.pi))
     }
     
@@ -103,21 +66,160 @@ class CursorController: ObservableObject {
         }
     }
     
-    private func handleKeyPress(_ event: NSEvent) {
-        if event.charactersIgnoringModifiers == "q" {
-            cleanup()
-            NSApplication.shared.terminate(nil)
-        }
-    }
-    
     private func startMovement() {
-        movementTimer = Timer.scheduledTimer(withTimeInterval: CursorConfig.updateFrequency,
-                                             repeats: true) { [weak self] _ in
+        movementTimer = Timer.scheduledTimer(
+            withTimeInterval: CursorConfig.updateFrequency,
+            repeats: true
+        ) { [weak self] _ in
             self?.updatePosition()
         }
         RunLoop.current.add(movementTimer!, forMode: .common)
     }
     
+    // MARK: - Public Interface
+    func togglePause() {
+        if pauseState.isPaused {
+            resumeMovement()
+        } else if case .notPausing = pauseState {
+            pauseIndefinitely()
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func handleKeyPress(_ event: NSEvent) {
+        switch event.charactersIgnoringModifiers {
+        case "q":
+            cleanup()
+            NSApplication.shared.terminate(nil)
+        case "p":
+            togglePause()
+        default:
+            break
+        }
+    }
+    
+    private func pauseIndefinitely() {
+        // Immediately stop movement by setting velocity to zero
+        currentVelocity = .zero
+        targetVelocity = .zero
+        pauseState = .paused(endTime: .infinity)
+        print("Manual pause activated - immediate stop")
+    }
+    
+    private func resumeMovement() {
+        pauseState = .notPausing
+        print("Resuming movement")
+        speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
+        headingAngle += CGFloat.random(in: -CGFloat.pi/4...CGFloat.pi/4)
+        randomizeMargins()
+    }
+    
+    private func cleanup() {
+        movementTimer?.invalidate()
+        movementTimer = nil
+        if let monitor = keyMonitor {
+            NSEvent.removeMonitor(monitor)
+            keyMonitor = nil
+        }
+    }
+    
+    // MARK: - Movement Updates
+    private func updatePosition() {
+        time += CursorConfig.updateFrequency
+        
+        checkForRandomPause()
+        updatePauseState()
+        
+        guard !pauseState.isPaused,
+              let screen = NSScreen.main else { return }
+        
+        updateMovementParameters(screen: screen)
+        applyMovement(screen: screen)
+    }
+    
+    private func updateMovementParameters(screen: NSScreen) {
+        updateSpeedMultiplier()
+        maybeChangeFocusPoint(screen: screen)
+        applyHeadingChanges()
+        
+        currentSpeed = CursorConfig.baseSpeed * speedMultiplier +
+            CGFloat.random(in: -CursorConfig.maxSpeedVariation...CursorConfig.maxSpeedVariation) * 0.1
+        
+        updateVelocity()
+    }
+    
+    private func updateVelocity() {
+        // Base velocity from heading
+        targetVelocity.x = cos(headingAngle) * currentSpeed * CGFloat(CursorConfig.updateFrequency)
+        targetVelocity.y = sin(headingAngle) * currentSpeed * CGFloat(CursorConfig.updateFrequency)
+        
+        // Add noise
+        targetVelocity.x += humanLikeXNoise() * 0.1
+        targetVelocity.y += humanLikeYDrift(position.x) * 0.1 * CGFloat(CursorConfig.updateFrequency)
+        
+        // Smooth changes
+        currentVelocity.x += (targetVelocity.x - currentVelocity.x) * CursorConfig.smoothingFactor
+        currentVelocity.y += (targetVelocity.y - currentVelocity.y) * CursorConfig.smoothingFactor
+        
+        // Add micro jitter when not pausing
+        if !pauseState.isSlowingDown {
+            let microJitterX = CGFloat.random(in: -CursorConfig.microJitterAmplitude...CursorConfig.microJitterAmplitude) * CursorConfig.microJitterFrequency
+            let microJitterY = CGFloat.random(in: -CursorConfig.microJitterAmplitude...CursorConfig.microJitterAmplitude) * CursorConfig.microJitterFrequency
+            currentVelocity.x += microJitterX
+            currentVelocity.y += microJitterY
+        }
+    }
+    
+    private func applyMovement(screen: NSScreen) {
+        // Apply slowdown if needed
+        var moveFactor: CGFloat = 1.0
+        if case .slowingDown(let startTime) = pauseState {
+            let elapsed = Date().timeIntervalSinceReferenceDate - startTime
+            let fraction = min(elapsed / CursorConfig.pauseSlowingDuration, 1.0)
+            moveFactor = 1.0 - CGFloat(fraction)
+        }
+        
+        // Calculate new position
+        let dx = max(min(currentVelocity.x * moveFactor, CursorConfig.maxDeltaPerFrame), -CursorConfig.maxDeltaPerFrame)
+        let dy = max(min(currentVelocity.y * moveFactor, CursorConfig.maxDeltaPerFrame), -CursorConfig.maxDeltaPerFrame)
+        
+        var newPosition = position
+        newPosition.x += dx
+        newPosition.y += dy
+        
+        // Handle screen boundaries
+        handleScreenBoundaries(position: &newPosition, screen: screen)
+        
+        // Update position
+        position = newPosition
+        CGWarpMouseCursorPosition(position)
+    }
+    
+    private func handleScreenBoundaries(position: inout CGPoint, screen: NSScreen) {
+        if position.x > screen.frame.width - rightMargin {
+            position.x = screen.frame.width - rightMargin
+            bounceOffEdge()
+        } else if position.x < leftMargin {
+            position.x = leftMargin
+            bounceOffEdge()
+        }
+        
+        if position.y < bottomMargin {
+            position.y = bottomMargin
+            bounceOffEdge()
+        } else if position.y > screen.frame.height - topMargin {
+            position.y = screen.frame.height - topMargin
+            bounceOffEdge()
+        }
+    }
+    
+    private func bounceOffEdge() {
+        headingAngle += CGFloat.pi * CGFloat.random(in: 0.2...0.8)
+        randomizeMargins()
+        speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
+    }
+    
+    // MARK: - Helper Methods
     private func randomizeMargins() {
         leftMargin = CGFloat.random(in: 0...CursorConfig.maxEdgeMargin)
         rightMargin = CGFloat.random(in: 0...CursorConfig.maxEdgeMargin)
@@ -131,9 +233,10 @@ class CursorController: ObservableObject {
         if Double.random(in: 0...1) < CursorConfig.pauseChance {
             let pauseDuration = TimeInterval.random(in: CursorConfig.minPauseDuration...CursorConfig.maxPauseDuration)
             let now = Date().timeIntervalSinceReferenceDate
+            // Only use slowdown for automatic pauses
             pauseState = .slowingDown(startTime: now)
             desiredPauseEndTime = now + CursorConfig.pauseSlowingDuration + pauseDuration
-            print("Starting to slow down for pause, then pausing for \(Int(pauseDuration))s")
+            print("Starting to slow down for automatic pause, then pausing for \(Int(pauseDuration))s")
         }
     }
     
@@ -152,13 +255,7 @@ class CursorController: ObservableObject {
             }
         case .paused(let endTime):
             if currentTime >= endTime {
-                // Resume
-                pauseState = .notPausing
-                print("Resuming movement")
-                speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
-                // Slightly adjust heading angle on resume for variety
-                headingAngle += CGFloat.random(in: -CGFloat.pi/4...CGFloat.pi/4)
-                randomizeMargins()
+                resumeMovement()
             }
         }
     }
@@ -208,7 +305,6 @@ class CursorController: ObservableObject {
         // If conditions suggest a direction change, rotate the heading angle slightly
         if shouldChangeDirection() {
             lastDirectionChangeTime = Date().timeIntervalSinceReferenceDate
-            // Instead of toggling a direction, nudge the angle
             let angleChange = CGFloat.random(in: -CGFloat.pi/2...CGFloat.pi/2) * 0.2
             headingAngle += angleChange
         }
@@ -236,122 +332,5 @@ class CursorController: ObservableObject {
         while headingAngle > 2*CGFloat.pi {
             headingAngle -= 2*CGFloat.pi
         }
-    }
-    
-    private func updatePosition() {
-        time += CursorConfig.updateFrequency
-        
-        checkForRandomPause()
-        updatePauseState()
-        
-        // If fully paused, do not move
-        if case .paused = pauseState {
-            return
-        }
-        
-        guard let screen = NSScreen.main else { return }
-        
-        updateSpeedMultiplier()
-        maybeChangeFocusPoint(screen: screen)
-        
-        // Adjust heading angle for more organic curves
-        applyHeadingChanges()
-        
-        currentSpeed = CursorConfig.baseSpeed * speedMultiplier +
-            CGFloat.random(in: -CursorConfig.maxSpeedVariation...CursorConfig.maxSpeedVariation) * 0.1
-        
-        // Base target velocity based on heading angle
-        targetVelocity.x = cos(headingAngle) * currentSpeed * CGFloat(CursorConfig.updateFrequency)
-        targetVelocity.y = sin(headingAngle) * currentSpeed * CGFloat(CursorConfig.updateFrequency)
-        
-        // Add human-like drift from noise
-        let xNoise = humanLikeXNoise() * 0.1
-        let yDrift = humanLikeYDrift(position.x) * 0.1 * CGFloat(CursorConfig.updateFrequency)
-        
-        targetVelocity.x += xNoise
-        targetVelocity.y += yDrift
-        
-        // Smooth velocities
-        currentVelocity.x += (targetVelocity.x - currentVelocity.x) * CursorConfig.smoothingFactor
-        currentVelocity.y += (targetVelocity.y - currentVelocity.y) * CursorConfig.smoothingFactor
-        
-        if case .notPausing = pauseState {
-            // Micro jitter
-            let microJitterX = CGFloat.random(in: -CursorConfig.microJitterAmplitude...CursorConfig.microJitterAmplitude) * CursorConfig.microJitterFrequency
-            let microJitterY = CGFloat.random(in: -CursorConfig.microJitterAmplitude...CursorConfig.microJitterAmplitude) * CursorConfig.microJitterFrequency
-            currentVelocity.x += microJitterX
-            currentVelocity.y += microJitterY
-        }
-        
-        // If slowing down, reduce velocity magnitude
-        var moveFactor: CGFloat = 1.0
-        if case .slowingDown(let startTime) = pauseState {
-            let elapsed = Date().timeIntervalSinceReferenceDate - startTime
-            let fraction = min(elapsed / CursorConfig.pauseSlowingDuration, 1.0)
-            moveFactor = 1.0 - CGFloat(fraction)
-        }
-        
-        var dx = currentVelocity.x * moveFactor
-        var dy = currentVelocity.y * moveFactor
-        
-        // Clamp per-frame movement to prevent large jumps
-        dx = max(min(dx, CursorConfig.maxDeltaPerFrame), -CursorConfig.maxDeltaPerFrame)
-        dy = max(min(dy, CursorConfig.maxDeltaPerFrame), -CursorConfig.maxDeltaPerFrame)
-        
-        var newPosition = position
-        newPosition.x += dx
-        newPosition.y += dy
-        
-        // Check boundaries
-        if newPosition.x > screen.frame.width - rightMargin {
-            newPosition.x = screen.frame.width - rightMargin
-            // Nudge angle away from the edge
-            headingAngle += CGFloat.pi * CGFloat.random(in: 0.2...0.8)
-            randomizeMargins()
-            speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
-        } else if newPosition.x < leftMargin {
-            newPosition.x = leftMargin
-            headingAngle += CGFloat.pi * CGFloat.random(in: 0.2...0.8)
-            randomizeMargins()
-            speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
-        }
-        
-        if newPosition.y < bottomMargin {
-            newPosition.y = bottomMargin
-            headingAngle += CGFloat.pi * CGFloat.random(in: 0.2...0.8)
-            randomizeMargins()
-            speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
-        } else if newPosition.y > screen.frame.height - topMargin {
-            newPosition.y = screen.frame.height - topMargin
-            headingAngle += CGFloat.pi * CGFloat.random(in: 0.2...0.8)
-            randomizeMargins()
-            speedMultiplier = CGFloat.random(in: CursorConfig.minSpeedMultiplier...CursorConfig.maxSpeedMultiplier)
-        }
-        
-        position = newPosition
-        CGWarpMouseCursorPosition(position)
-    }
-    
-    private func cleanup() {
-        movementTimer?.invalidate()
-        movementTimer = nil
-        if let monitor = keyMonitor {
-            NSEvent.removeMonitor(monitor)
-            keyMonitor = nil
-        }
-    }
-}
-
-struct ContentView: View {
-    @StateObject private var controller = CursorController()
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Cursor Position")
-                .font(.title)
-            
-            Text("X: \(Int(controller.position.x)), Y: \(Int(controller.position.y))")
-        }
-        .padding()
     }
 }
