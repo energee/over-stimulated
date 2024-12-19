@@ -1,0 +1,56 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Allows manual trigger from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set Xcode Version
+      run: sudo xcode-select -s /Applications/Xcode.app
+      
+    - name: Build
+      run: |
+        xcodebuild clean build \
+          -project OverStimulated.xcodeproj \
+          -scheme OverStimulated \
+          -configuration Release \
+          -derivedDataPath build \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO
+          
+    - name: Create DMG
+      run: |
+        cd build/Build/Products/Release
+        # Create a temporary directory for the DMG
+        mkdir dmg
+        # Copy the app bundle to the temporary directory
+        cp -r OverStimulated.app dmg/
+        # Create the DMG
+        hdiutil create -volname "OverStimulated" -srcfolder dmg -ov -format UDZO OverStimulated.dmg
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: OverStimulated
+        path: build/Build/Products/Release/OverStimulated.dmg
+        
+    # Optional: Create a GitHub Release with the DMG
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/Build/Products/Release/OverStimulated.dmg
+        tag_name: v${{ github.run_number }}
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
